@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refresh / Content Opportunity Scoring</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 24px;
+  line-height: 1.7;
+  color: #222;
+}
+h1 { line-height: 1.2; }
+h2 {
+  margin-top: 42px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+.meta {
+  background: #f5f5f5;
+  padding: 16px;
+  border-radius: 8px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+a { color: #1769aa; }
+</style>
+</head>
+
+<body>
+
+<h1>Refresh / Content Opportunity Scoring</h1>
+
+<div class="meta">
+<p><strong>Author:</strong> Nithya Sree</p>
+<p><strong>Lane:</strong> Refresh / Content Opportunity Scoring</p>
+<p><strong>Project:</strong> FlyRank ML Internship Capstone</p>
+</div>
+
+<h2>Abstract</h2>
+
+<p>
+This project investigates how search-performance signals can support the prioritization of content for review and refresh. 
+The analysis uses safe, aggregated search-performance data and focuses on observable signals rather than attempting to infer search-engine algorithms. 
+A transparent baseline action score is compared with a machine-learning approach using a consistent evaluation design. 
+The results provide a directional way to rank pages for human review using measurable performance signals. 
+The resulting ranked recommendations are intended as decision-support for editors rather than as automated or causal decisions.
+</p>
+
+<h2>1. Problem Statement</h2>
+
+<p>
+Content teams often have more pages available for review than they can manually inspect. 
+The goal of this project is to create a repeatable scoring approach that helps prioritize which pages may deserve attention first.
+</p>
+
+<p>
+The unit of analysis is a content page over an observed reporting period. 
+The output is a ranked action queue. 
+A human editor can use the ranking to decide which pages should be reviewed, refreshed, monitored, or otherwise investigated.
+</p>
+
+<p>
+A wrong recommendation can waste editorial effort or cause a useful page to be changed unnecessarily. 
+For this reason, the system is framed as decision-support and not as an automatic publishing or deletion system.
+</p>
+
+<h2>2. Data</h2>
+
+<p>
+The project uses the FlyRank ML Internship dataset and focuses on search-performance signals that can be used safely for analysis.
+</p>
+
+<p>
+Label-derived fields such as trend direction and future-window outcomes were excluded from predictive inputs. 
+Pseudonymous identifiers were used only for grouping or analysis where required and were not treated as predictive features.
+Client-identifying information, private queries, credentials, and raw exports were excluded from the public-facing paper.
+</p>
+
+<h2>3. Baseline</h2>
+
+<p>
+The baseline uses a transparent rule-based score built from observable content-performance signals. 
+The purpose of the baseline is to provide a simple and interpretable benchmark before applying a more complex model.
+</p>
+
+<p>
+The baseline produces a score, a single reason code, and an action label. 
+Pages are then ranked by the resulting score so that the highest-priority items appear first.
+</p>
+
+<h2>4. Model / Analysis</h2>
+
+<p>
+The modeling approach was selected to provide a useful comparison with the transparent baseline while keeping the analysis interpretable.
+The features were restricted to signals available within the defined observation window.
+</p>
+
+<p>
+Future information and label-derived fields were deliberately excluded to reduce leakage risk.
+The model is evaluated as a decision-support tool rather than as a claim about the behavior of any search engine.
+</p>
+
+<h2>5. Evaluation</h2>
+
+<p>
+The model and baseline were evaluated on the same data split and using the same evaluation framework.
+The validation design was chosen to avoid giving the model information from outside the intended observation period.
+</p>
+
+<table>
+<tr>
+<th>Approach</th>
+<th>Evaluation</th>
+</tr>
+<tr>
+<td>Transparent baseline</td>
+<td>Rule-based ranking</td>
+</tr>
+<tr>
+<td>Model</td>
+<td>Machine-learning ranking/analysis</td>
+</tr>
+</table>
+
+<p>
+The evaluation is intended to measure whether the additional modeling complexity provides useful improvement over the simple baseline.
+Errors and weak recommendations were reviewed manually because a numerical metric alone does not establish that a recommendation is useful.
+</p>
+
+<h2>6. Interpretation</h2>
+
+<p>
+The analysis indicates that observable search-performance signals can provide useful directional evidence for prioritizing content review.
+However, relationships in the data should not be interpreted as causal effects.
+</p>
+
+<p>
+The most useful interpretation is therefore operational: which pages appear sufficiently unusual or important to deserve human investigation first.
+Negative or weak signals are also useful because they prevent the scoring rule from over-prioritizing pages without adequate evidence.
+</p>
+
+<h2>7. Ranked Recommendations</h2>
+
+<ol>
+<li><strong>Review high-priority pages first</strong> when multiple observable signals indicate potential opportunity.</li>
+<li><strong>Inspect the underlying evidence</strong> before making editorial changes.</li>
+<li><strong>Use refresh recommendations as decision-support</strong>, not automatic instructions.</li>
+<li><strong>Monitor uncertain cases</strong> rather than forcing a strong action when the evidence is weak.</li>
+<li><strong>Re-run the scoring process</strong> when new observation data becomes available.</li>
+</ol>
+
+<p>
+Confidence should be treated as directional. The ranking helps allocate human attention; it does not prove that a refresh will improve search performance.
+</p>
+
+<h2>8. Reproducibility</h2>
+
+<p>
+The analysis notebooks are maintained in the project repository under <code>work/notebooks/</code>.
+The Week-4 baseline notebook produces the baseline action-score output, while the Week-5 notebook contains the modeling workflow.
+</p>
+
+<p>
+The project uses reproducible notebook execution, explicit feature definitions, leakage checks, and fixed random seeds where applicable.
+</p>
+
+<p>
+<a href="https://github.com/nithyyaa/flyrank-ml-internship">
+View the project repository
+</a>
+</p>
+
+<h2>9. Acknowledgments &amp; Data Credit</h2>
+
+<p>
+Built on the
+<a href="https://flyrank.ai">FlyRank ML Internship dataset</a>.
+</p>
+
+</body>
+</html>
